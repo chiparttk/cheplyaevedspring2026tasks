@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
         double val2opt = knap.evaluate(sol2opt);
         knap.printSolution(sol2opt, val2opt);
 
-        std::cout << "\nKnapsack: 3-opt:\n";
+        std::cout << "Knapsack: 3-opt:\n";
         std::vector<int>  sol3opt = solver.solve(&knap, [&](const std::vector<int>& start) {
             return knap.Search3opt(start);
         });
@@ -60,8 +60,49 @@ int main(int argc, char* argv[]) {
 
         std::cout << "Knapsack: Genetic\n";
         std::vector<int> solG = knap.Genetic(100, 333, .05);
-        double valBandB = knap.evaluate(solG);
-        knap.printSolution(solG, valBandB); 
+        double valG = knap.evaluate(solG);
+        knap.printSolution(solG, valG); 
+    } else if (taskType == 5) {
+        Knapsack knap;
+        knap.load(std::cin);
+        
+        std::cout << "Knapsack: Greedy\n";
+        std::vector<int> solGreedy = knap.Greedy();
+        double valGreedy = knap.evaluate(solGreedy);
+        knap.printSolution(solGreedy, valGreedy); 
+    } else if (taskType == 6) {
+        std::cout << "Knapsack all type of solutions\n";
+        Knapsack knap;
+        knap.load(std::cin);
+
+        std::cout << "Knapsack: 2-opt:\n";
+        std::vector<int>  sol2opt = solver.solve(&knap, [&](const std::vector<int>& start) {
+            return knap.Search2opt(start);
+        });
+        double val2opt = knap.evaluate(sol2opt);
+        knap.printSolution(sol2opt, val2opt);
+
+        std::cout << "Knapsack: 3-opt:\n";
+        std::vector<int>  sol3opt = solver.solve(&knap, [&](const std::vector<int>& start) {
+            return knap.Search3opt(start);
+        });
+        double val3opt = knap.evaluate(sol3opt);
+        knap.printSolution(sol3opt, val3opt);
+
+        std::cout << "Knapsack: Branch and Bound\n";
+        std::vector<int> solBandB = knap.BranchAndBound();
+        double valBandB = knap.evaluate(solBandB);
+        knap.printSolution(solBandB, valBandB); 
+
+        std::cout << "Knapsack: Genetic\n";
+        std::vector<int> solG = knap.Genetic(100, 333, .05);
+        double valG = knap.evaluate(solG);
+        knap.printSolution(solG, valG); 
+
+        std::cout << "Knapsack: Greedy\n";
+        std::vector<int> solGreedy = knap.Greedy();
+        double valGreedy = knap.evaluate(solGreedy);
+        knap.printSolution(solGreedy, valGreedy); 
     } else {
         std::cerr << "Invalid task type. Use 1 for TSP, 2 for Knapsack.\n";
         return 1;

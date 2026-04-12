@@ -278,3 +278,24 @@ std::vector<int> Knapsack::Genetic(int populationSize, int generations, double m
     }
     return  bestGlobalSolution;
 }
+
+std::vector<int> Knapsack::Greedy() const {
+    std::vector<Item> items(n);
+    for (int i = 0; i < n; ++i) {
+        items[i] = {value[i], weight[i], value[i]/weight[i], i};
+    }
+    std::sort(items.begin(), items.end(), [](const  Item& a, const  Item& b){return a.ratio > b.ratio;});
+
+    std::vector<int> solution(n, 0);
+    double CurrWeight = .0;
+
+    for (int i = 0; i < n; ++i) {
+        int idx = items[i].idx;
+        if (CurrWeight + items[i].w <= capacity){
+            solution[idx] = 1;
+            CurrWeight += items[i].w;
+        }
+    }
+
+    return solution;
+}

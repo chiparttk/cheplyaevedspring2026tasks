@@ -31,6 +31,7 @@ public:
     std::vector<int> Search3opt(const std::vector<int>& start) const;
     std::vector<int> BranchAndBound() const;
     std::vector<int> Genetic(int populationSize, int generations, double mutationRate) const;
+    std::vector<int> Greedy() const;
 };
 
 #endif
